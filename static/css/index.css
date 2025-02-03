@@ -1,0 +1,167 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #56ccf2, #2f80ed);
+    color: white;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Navigation Bar */
+header {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    animation: slideDown 1s ease-in-out;
+}
+
+/* Slide-down animation */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+}
+
+nav h1 {
+    font-size: 24px;
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect on heading */
+nav h1:hover {
+    transform: scale(1.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover effect on nav links */
+nav ul li a:hover {
+    color: #ffd700;
+}
+
+/* Welcome Section */
+main {
+    text-align: center;
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.welcome {
+    padding: 20px;
+    max-width: 600px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out 0.5s forwards;
+}
+
+/* Button */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: white;
+    color: #2f80ed;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+/* Button Hover Animation */
+.btn:hover {
+    background: #f1f1f1;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        padding: 0;
+        gap: 10px;
+    }
+
+    nav h1 {
+        font-size: 20px;
+    }
+
+    .welcome h2 {
+        font-size: 26px;
+    }
+
+    .welcome p {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav h1 {
+        font-size: 18px;
+    }
+
+    .welcome h2 {
+        font-size: 22px;
+    }
+
+    .welcome p {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
