@@ -1,167 +1,249 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+/* Place this file in static/css/index.css */
+
+/* General Reset */
+* {
     margin: 0;
-    background: linear-gradient(to right, #56ccf2, #2f80ed);
-    color: white;
-    animation: fadeIn 1.5s ease-in-out;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+body {
+    line-height: 1.6;
+    color: #333;
+    background-color: #f7f9fc;
 }
 
-/* Navigation Bar */
+/* Header Styles */
 header {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 15px 0;
-    position: fixed;
-    top: 0;
-    animation: slideDown 1s ease-in-out;
-}
-
-/* Slide-down animation */
-@keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-    }
-    to {
-        transform: translateY(0);
-    }
+    background-color: #0abde3;
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 nav {
     display: flex;
     justify-content: space-between;
-    width: 80%;
-    margin: 0 auto;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 nav h1 {
-    font-size: 24px;
-    color: #fff;
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Hover effect on heading */
-nav h1:hover {
-    transform: scale(1.1);
+    font-size: 1.8rem;
+    margin-right: 2rem;
 }
 
 nav ul {
-    list-style: none;
     display: flex;
-    gap: 20px;
+    list-style: none;
+    flex-grow: 1;
 }
 
 nav ul li {
-    display: inline;
+    margin-right: 1.5rem;
 }
 
 nav ul li a {
-    text-decoration: none;
     color: white;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
-/* Hover effect on nav links */
 nav ul li a:hover {
-    color: #ffd700;
+    color: #f0f0f0;
 }
 
-/* Welcome Section */
+#google_translate_element {
+    margin-left: auto;
+}
+
+/* Main Content Styles */
 main {
-    text-align: center;
-    margin-top: 100px;
-    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 .welcome {
-    padding: 20px;
-    max-width: 600px;
-    opacity: 0;
-    animation: fadeIn 1.5s ease-in-out 0.5s forwards;
+    text-align: center;
+    padding: 4rem 1rem;
 }
 
-/* Button */
+.welcome h2 {
+    font-size: 2.5rem;
+    color: #2d3436;
+    margin-bottom: 1rem;
+}
+
+.welcome p {
+    font-size: 1.2rem;
+    color: #636e72;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+}
+
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    background: white;
-    color: #2f80ed;
+    background-color: #0abde3;
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 4px;
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
 }
 
-/* Button Hover Animation */
 .btn:hover {
-    background: #f1f1f1;
-    transform: scale(1.1);
+    background-color: #00a8cc;
+}
+
+/* Chatbot Interface Styles */
+.chatbot-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.chatbot-container h2 {
+    color: #0abde3;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.symptom-selector {
+    margin: 2rem 0;
+}
+
+#symptom-search {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.suggestions {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+
+.suggestion-item {
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+    background-color: #f5f5f5;
+}
+
+.selected-symptoms {
+    margin: 1.5rem 0;
+}
+
+.selected-symptoms h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: #2d3436;
+}
+
+#selected-symptoms-list {
+    list-style: none;
+}
+
+#selected-symptoms-list li {
+    background-color: #f0f0f0;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.result-container {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    padding-top: 2rem;
+}
+
+.result-container h3 {
+    color: #2d3436;
+    margin-bottom: 1rem;
+}
+
+.diagnosis h4 {
+    color: #0abde3;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.diagnosis h5 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #2d3436;
+}
+
+.diagnosis ul {
+    margin-left: 1.5rem;
+}
+
+.disclaimer {
+    margin-top: 2rem;
+    font-style: italic;
+    color: #e74c3c;
+}
+
+.hidden {
+    display: none;
+}
+
+.error {
+    color: #e74c3c;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
     }
-
+    
     nav ul {
-        padding: 0;
-        gap: 10px;
+        margin: 1rem 0;
+        flex-direction: column;
     }
-
-    nav h1 {
-        font-size: 20px;
+    
+    nav ul li {
+        margin-bottom: 0.5rem;
     }
-
-    .welcome h2 {
-        font-size: 26px;
+    
+    #google_translate_element {
+        margin: 1rem 0;
     }
-
-    .welcome p {
-        font-size: 16px;
-    }
-
-    .btn {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    nav h1 {
-        font-size: 18px;
-    }
-
-    .welcome h2 {
-        font-size: 22px;
-    }
-
-    .welcome p {
-        font-size: 14px;
-    }
-
-    .btn {
-        padding: 6px 12px;
-        font-size: 12px;
+    
+    .welcome {
+        padding: 2rem 1rem;
     }
 }
