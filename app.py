@@ -41,6 +41,14 @@ def get_predicted_value(user_symptoms):
     prediction = all_diseases[prediction_index]
     return prediction
 
+
+def clean_list(data):
+    """Ensure the data is properly formatted as a list"""
+    if isinstance(data, list) and len(data) == 1 and isinstance(data[0], str):
+        data = data[0].strip("[]")  # Remove square brackets
+        data = data.replace("'", "").split(", ")  # Remove quotes and split into a list
+    return data if isinstance(data, list) else [data]  # Ensure it's always a list
+
 def helper(dis):
     desc = description[description['Disease'] == dis]['Description']
     desc = " ".join([w for w in desc])  # Convert to string
@@ -56,6 +64,7 @@ def helper(dis):
 
     med = medications[medications['Disease'] == dis]['Medication']
     med = med.tolist() if not med.empty else []
+    
     # med = med.values.tolist()
     
     die = diets[diets['Disease'] == dis]['Diet']
@@ -98,7 +107,7 @@ def predict():
         
         # Convert numpy.int64 to int
         desc = desc.tolist() if isinstance(desc, np.ndarray) else desc
-        pre = [str(item) for item in pre[0]] if pre else []
+        pre = [str(item) for item in pre] if pre else []
         med = [str(item) for item in med] if med else []
         wrkout = [str(item) for item in wrkout] if wrkout else []
         die = [str(item) for item in die] if die else []
@@ -107,9 +116,9 @@ def predict():
             "predicted_disease": str(predicted_disease),
             "description": desc,
             "precautions": pre,
-            "medications": med,
+            "medications": clean_list(med),
             "workout": wrkout,
-            "diet": die
+            "diet": clean_list(die)
         })
     except KeyError as e:
         print(f"KeyError: {str(e)}")
