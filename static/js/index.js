@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         symptoms.slice(0, 10).forEach(symptom => {
             const suggestionItem = document.createElement('div');
             suggestionItem.classList.add('suggestion-item');
-            suggestionItem.textContent = symptom;
+            suggestionItem.textContent = symptom.replace(/_/g, ' ');
             suggestionItem.addEventListener('click', function() {
                 addSymptom(symptom);
                 document.getElementById('symptom-search').value = '';
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         selectedSymptoms.forEach(symptom => {
             const listItem = document.createElement('li');
-            listItem.textContent = symptom;
+            listItem.textContent = symptom.replace(/_/g, ' ');;
             
             const removeBtn = document.createElement('button');
             removeBtn.textContent = '✕';
@@ -179,10 +179,13 @@ document.addEventListener('DOMContentLoaded', function() {
             diagnosisResult.innerHTML = `<p class="error">Error: ${error.message}</p>`;
         });
     }
+
     
     // Function to display the prediction results
     function displayResults(data) {
         const diagnosisResult = document.getElementById('diagnosis-result');
+        console.log(data.diet);
+        
         
         // Create HTML for the results
         let resultsHtml = `
@@ -196,21 +199,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="precautions">
                     <h5>Precautions:</h5>
                     <ul>
-                        ${data.precautions.map(precaution => `<li>${precaution}</li>`).join('')}
+                    ${(Array.isArray(data.precautions) ? data.precautions : [data.precautions])
+                        .map(precaution => `<li>${precaution}</li>`)
+                        .join('')}
+                    
                     </ul>
                 </div>
                 
                 <div class="medications">
                     <h5>Recommended Medications:</h5>
                     <ul>
-                        ${data.medications.map(medication => `<li>${medication}</li>`).join('')}
+                    ${(Array.isArray(data.medications) ? data.medications : [data.medications])
+                        .map(medication => `<li>${medication}</li>`)
+                        .join('')}
                     </ul>
                 </div>
                 
                 <div class="diet">
                     <h5>Dietary Recommendations:</h5>
                     <ul>
-                        ${data.diet.map(diet => `<li>${diet}</li>`).join('')}
+                    ${(Array.isArray(data.diet) ? data.diet : [data.diet])
+                        .map(diet => `<li>${diet}</li>`)
+                        .join('')}
                     </ul>
                 </div>
                 
