@@ -114,18 +114,17 @@ main {
     border: 1px solid #ccc;
 }
 
-#mic-icon {
-    position: absolute;
-    right: 10px;
+.mic-button {
     cursor: pointer;
-    font-size: 18px;
-    color: #666;
-    transition: color 0.3s;
+    font-size: 20px;   /* Adjust size */
+    margin-left: 10px;
+    transition: color 0.3s ease-in-out;
 }
 
-#mic-icon.active {
-    color: red; /* Mic icon turns red when active */
+.mic-button.listening {
+    color: red;   /* Mic turns red when listening */
 }
+
 
 /* Chatbot Interface Styles */
 .chatbot-container {
