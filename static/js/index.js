@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatBtn = document.getElementById('chat-btn');
     const navChatbot = document.getElementById('nav-chatbot');
     const languageToggle = document.getElementById('language-toggle'); // Language toggle button
-
+    const micIcon = document.getElementById('mic-icon');
     let recognition;
     let isListening = false;
     let silenceTimeout;
@@ -46,33 +46,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
         recognition.onend = function () {
             isListening = false;
-            toggleSpeechButton(false);
+            micIcon.classList.replace('fa-pause', 'fa-microphone'); // Switch back to mic icon
+            micIcon.classList.remove('active');
         };
     } else {
         console.warn('Speech recognition not supported in this browser.');
     }
-
     // Function to toggle speech recognition
     function toggleSpeechRecognition() {
         if (isListening) {
             recognition.stop();
             isListening = false;
-            toggleSpeechButton(false);
+            micIcon.classList.replace('fa-pause', 'fa-microphone'); // Change back to mic icon
+            micIcon.classList.remove('active');
         } else {
             recognition.start();
             isListening = true;
-            toggleSpeechButton(true);
+            micIcon.classList.replace('fa-microphone', 'fa-pause'); // Change to pause icon
+            micIcon.classList.add('active');
 
             // Start silence timeout
             startSilenceTimeout();
         }
     }
 
-    // Function to toggle the button text
-    function toggleSpeechButton(listening) {
-        const speechButton = document.getElementById('speech-btn');
-        speechButton.textContent = listening ? 'Stop' : 'Speak';
-    }
+    // Attach event listener to mic icon
+
+
+    // // Function to toggle the button text
+    // function toggleSpeechButton(listening) {
+    //     const speechButton = document.getElementById('speech-btn');
+    //     speechButton.textContent = listening ? 'Stop' : 'Speak';
+    // }
 
     // Function to start the silence timeout
     function startSilenceTimeout() {
@@ -81,18 +86,19 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isListening) {
                 recognition.stop();
                 isListening = false;
-                toggleSpeechButton(false);
+                micIcon.classList.replace('fa-pause', 'fa-microphone'); // Change back to mic icon
+                micIcon.classList.remove('active');
                 console.log('Speech recognition stopped due to silence.');
             }
         }, 5000); // Stop after 5 seconds of silence
     }
+
 
     // Function to reset the silence timeout
     function resetSilenceTimeout() {
         clearTimeout(silenceTimeout);
         startSilenceTimeout();
     }
-
     // Update speech recognition language when the language toggle is clicked
     if (languageToggle) {
         languageToggle.addEventListener('click', function () {
@@ -101,12 +107,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(`Speech recognition language updated to: ${recognition.lang}`);
         });
     }
-
-    // Add event listener to the speech button
-    const speechButton = document.getElementById('speech-btn');
-    if (speechButton) {
-        speechButton.addEventListener('click', toggleSpeechRecognition);
+    if(micIcon) {
+        micIcon.addEventListener('click', toggleSpeechRecognition);
     }
+    // Add event listener to the speech button
+    // const speechButton = document.getElementById('speech-btn');
+    // if (speechButton) {
+    //     speechButton.addEventListener('click', toggleSpeechRecognition);
+    // }
 
     // Attach event listeners
     if (chatBtn) chatBtn.addEventListener('click', openChatInterface);
@@ -142,8 +150,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p>Please select your symptoms for diagnosis:</p>
                 
                 <div class="symptom-selector">
-                    <input type="text" id="symptom-search" placeholder="Search for symptoms...">
-                    <button id="speech-btn" class="btn">Speak</button> <!-- Speech-to-text button -->
+                    <div class="input-wrapper">
+                        <input type="text" id="symptom-search" placeholder="Search for symptoms...">
+                        <i id="mic-icon" class="fas fa-microphone"></i>
+                    </div>
                     <div id="symptom-suggestions" class="suggestions"></div>
                 </div>
                 
@@ -165,7 +175,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const symptomSearch = document.getElementById('symptom-search');
         const symptomSuggestions = document.getElementById('symptom-suggestions');
         const predictBtn = document.getElementById('predict-btn');
-        const speechButton = document.getElementById('speech-btn');
+        const micIcon = document.getElementById('mic-icon');
+        // const speechButton = document.getElementById('speech-btn');
 
         // Add event listener for symptom search
         if (symptomSearch) {
@@ -189,8 +200,8 @@ document.addEventListener('DOMContentLoaded', function () {
             predictBtn.addEventListener('click', getPrediction);
         }
 
-        if (speechButton) {
-            speechButton.addEventListener('click', toggleSpeechRecognition);
+        if (micIcon) {
+            micIcon.addEventListener('click', toggleSpeechRecognition);
         }
     }
 
