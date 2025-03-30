@@ -15,9 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
         recognition.interimResults = true;
 
         // Set the initial language from localStorage or default to English
-        let currentLanguage = localStorage.getItem('language') || 'en';
-        recognition.lang = currentLanguage === 'en' ? 'en-US' : 'hi-IN';
-
+        // let currentLanguage = localStorage.getItem('language') || 'en';
+        // recognition.lang = currentLanguage === 'en' ? 'en-US' : 'hi-IN';
+        recognition.lang = 'en-US';
+        recognition.onstart = function () {
+            isListening = true;
+            updateMicIcon();  // ✅ Update mic icon when listening starts
+        };
         recognition.onresult = function (event) {
             const transcript = Array.from(event.results)
                 .map(result => result[0].transcript)
@@ -46,8 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         recognition.onend = function () {
             isListening = false;
-            micIcon.classList.replace('fa-pause', 'fa-microphone'); // Switch back to mic icon
-            micIcon.classList.remove('active');
+            updateMicIcon();
         };
     } else {
         console.warn('Speech recognition not supported in this browser.');
@@ -57,14 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isListening) {
             recognition.stop();
             isListening = false;
-            micIcon.classList.replace('fa-pause', 'fa-microphone'); // Change back to mic icon
-            micIcon.classList.remove('active');
         } else {
             recognition.start();
             isListening = true;
-            micIcon.classList.replace('fa-microphone', 'fa-pause'); // Change to pause icon
-            micIcon.classList.add('active');
-
             // Start silence timeout
             startSilenceTimeout();
         }
@@ -72,7 +70,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Attach event listener to mic icon
 
+    function updateMicIcon() {
 
+        if (isListening) {
+            micIcon.classList.remove('fa-microphone');  // Remove mic icon
+            micIcon.classList.add('fa-pause', 'listening');  // Add pause icon and red color class
+        } else {
+            micIcon.classList.remove('fa-pause', 'listening');  // Remove pause icon and red color
+            micIcon.classList.add('fa-microphone');  // Add mic icon back
+        }
+
+    }
     // // Function to toggle the button text
     // function toggleSpeechButton(listening) {
     //     const speechButton = document.getElementById('speech-btn');
@@ -107,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(`Speech recognition language updated to: ${recognition.lang}`);
         });
     }
-    if(micIcon) {
+    if (micIcon) {
         micIcon.addEventListener('click', toggleSpeechRecognition);
     }
     // Add event listener to the speech button
@@ -152,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="symptom-selector">
                     <div class="input-wrapper">
                         <input type="text" id="symptom-search" placeholder="Search for symptoms...">
-                        <i id="mic-icon" class="fas fa-microphone"></i>
+                        <i id="mic-icon" class="fas fa-microphone mic-button"></i>
                     </div>
                     <div id="symptom-suggestions" class="suggestions"></div>
                 </div>
@@ -318,8 +326,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <h5>Precautions:</h5>
                     <ul>
                         ${(Array.isArray(data.precautions) ? data.precautions : [data.precautions])
-                            .map(precaution => `<li>${precaution}</li>`)
-                            .join('')}
+                .map(precaution => `<li>${precaution}</li>`)
+                .join('')}
                     </ul>
                 </div>
                 
@@ -327,8 +335,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <h5>Recommended Medications:</h5>
                     <ul>
                         ${(Array.isArray(data.medications) ? data.medications : [data.medications])
-                            .map(medication => `<li>${medication}</li>`)
-                            .join('')}
+                .map(medication => `<li>${medication}</li>`)
+                .join('')}
                     </ul>
                 </div>
                 
@@ -336,8 +344,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <h5>Dietary Recommendations:</h5>
                     <ul>
                         ${(Array.isArray(data.diet) ? data.diet : [data.diet])
-                            .map(diet => `<li>${diet}</li>`)
-                            .join('')}
+                .map(diet => `<li>${diet}</li>`)
+                .join('')}
                     </ul>
                 </div>
                 
