@@ -100,6 +100,32 @@ main {
 .btn:hover {
     background-color: #00a8cc;
 }
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#symptom-search {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; /* Space for mic icon */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#mic-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    transition: color 0.3s;
+}
+
+#mic-icon.active {
+    color: red; /* Mic icon turns red when active */
+}
 
 /* Chatbot Interface Styles */
 .chatbot-container {
@@ -119,15 +145,6 @@ main {
 
 .symptom-selector {
     margin: 2rem 0;
-}
-
-#symptom-search {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
 }
 
 .suggestions {
