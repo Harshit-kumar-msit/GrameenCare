@@ -3,10 +3,28 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatBtn = document.getElementById('chat-btn');
     const navChatbot = document.getElementById('nav-chatbot');
     const languageToggle = document.getElementById('language-toggle'); // Language toggle button
-    const micIcon = document.getElementById('mic-icon');
+    let micIcon = document.getElementById('mic-icon');
     let recognition;
     let isListening = false;
     let silenceTimeout;
+
+        // Attach event listener to mic icon
+
+    function updateMicIcon() {
+        if (!micIcon) {
+            console.log('Mic icon element not found');
+            return;
+            }
+
+            if (isListening) {
+                micIcon.classList.remove('fa-microphone');  // Remove mic icon
+                micIcon.classList.add('fa-pause', 'listening');  // Add pause icon and red color class
+            } else {
+                micIcon.classList.remove('fa-pause', 'listening');  // Remove pause icon and red color
+                micIcon.classList.add('fa-microphone');  // Add mic icon back
+            }
+    
+        }
 
     // Initialize speech recognition
     if ('webkitSpeechRecognition' in window) {
@@ -60,27 +78,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isListening) {
             recognition.stop();
             isListening = false;
+            updateMicIcon();
         } else {
             recognition.start();
             isListening = true;
+            updateMicIcon();
             // Start silence timeout
             startSilenceTimeout();
         }
     }
 
-    // Attach event listener to mic icon
 
-    function updateMicIcon() {
-
-        if (isListening) {
-            micIcon.classList.remove('fa-microphone');  // Remove mic icon
-            micIcon.classList.add('fa-pause', 'listening');  // Add pause icon and red color class
-        } else {
-            micIcon.classList.remove('fa-pause', 'listening');  // Remove pause icon and red color
-            micIcon.classList.add('fa-microphone');  // Add mic icon back
-        }
-
-    }
     // // Function to toggle the button text
     // function toggleSpeechButton(listening) {
     //     const speechButton = document.getElementById('speech-btn');
@@ -179,11 +187,12 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `;
 
+        micIcon = document.getElementById('mic-icon');
         // Add event listeners to the new elements
         const symptomSearch = document.getElementById('symptom-search');
         const symptomSuggestions = document.getElementById('symptom-suggestions');
         const predictBtn = document.getElementById('predict-btn');
-        const micIcon = document.getElementById('mic-icon');
+        
         // const speechButton = document.getElementById('speech-btn');
 
         // Add event listener for symptom search
